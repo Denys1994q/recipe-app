@@ -1,11 +1,18 @@
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
-const LoginBtn =() => {
+const LoginBtn = () => {
     return (
         <>
-        <Button variant="outlined" sx={{fontSize: '16px'}}>Log in</Button>
+            <Link to='login'>
+                <Button
+                    variant='outlined'
+                    sx={{ fontSize: "16px" }}>
+                    Log in
+                </Button>
+            </Link>
         </>
-    )
-}
+    );
+};
 
 export default LoginBtn;
