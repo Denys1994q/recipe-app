@@ -2,31 +2,42 @@ import { useState } from "react";
 import "./registrationScreen.sass";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { v4 as uuidv4 } from "uuid";
+import { useDispatch } from "react-redux";
+import { auth_registerUser } from "../store/slices/auth";
+import { User } from "../store/slices/auth";
+import { useNavigate } from "react-router-dom";
 
 const RegistrationScreen = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const registerUser = (e: any) => {
         e.preventDefault();
-        const user = {
+        const user: User = {
             name,
             email,
             password,
-            id: 12356,
+            id: uuidv4(),
         };
-        console.log(user);
-        // if (!window.localStorage.getItem("users")) {
-        //     window.localStorage.setItem("users", JSON.stringify([]));
-        //     let users = JSON.parse(window.localStorage.getItem("users"));
-        //     users.push(user);
-        //     window.localStorage.setItem("users", JSON.stringify(users));
-        // } else {
-        //     let users = JSON.parse(window.localStorage.getItem("users"));
-        //     users.push(user);
-        //     window.localStorage.setItem("users", JSON.stringify(users));
-        // }
+
+        if (!window.localStorage.getItem("users")) {
+            window.localStorage.setItem("users", JSON.stringify([]));
+            let users: any = JSON.parse(window.localStorage.getItem("users") as any);
+            users.push(user);
+            window.localStorage.setItem("users", JSON.stringify(users));
+            dispatch(auth_registerUser(user));
+            navigate("/");
+        } else {
+            let users: any = JSON.parse(window.localStorage.getItem("users") as any);
+            users.push(user);
+            window.localStorage.setItem("users", JSON.stringify(users));
+            dispatch(auth_registerUser(user));
+            navigate("/");
+        }
     };
 
     return (

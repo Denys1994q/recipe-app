@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import ShopSlice from './slices/shop-slice'
+import authSlice from './slices/auth'
+import recipesSlice from './slices/recipes'
 
 const store = configureStore({
     reducer: {
-        // ShopSlice
+        authSlice,
+        recipesSlice
     },
     middleware: getDefaultMiddleware => getDefaultMiddleware(),
     devTools: process.env.NODE_ENV !== "production",
